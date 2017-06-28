@@ -1,0 +1,72 @@
+library(ggplot2)
+df <- movies <- movies[sample(nrow(movies), 1000), ]
+In [18]:
+head(df)
+Out[18]:
+title	year	length	budget	rating	votes	r1	r2	r3	r4	r5	r6	r7	r8	r9	r10	mpaa	Action	Animation	Comedy	Drama	Documentary	Romance	Short
+21569	Gunan il guerriero	1983	81	NA	2	38	44.5	14.5	4.5	14.5	14.5	0	4.5	4.5	4.5	4.5		1	0	0	0	0	0	0
+39820	Phantom Brother	1988	92	NA	2	10	45.5	14.5	0	0	0	24.5	14.5	0	0	14.5		0	0	0	0	0	0	0
+47662	Snow	1996	81	NA	7.2	10	0	0	14.5	0	0	44.5	14.5	24.5	0	24.5		0	0	0	1	0	0	0
+41080	Prelude	2000	6	NA	6.3	18	4.5	0	0	14.5	4.5	0	24.5	24.5	4.5	24.5		0	0	0	0	0	0	1
+58741	Zwaarmoedige verhalen voor bij de centrale verwarming	1975	95	NA	5	27	14.5	0	0	4.5	14.5	14.5	14.5	14.5	14.5	24.5		0	0	1	1	0	0	0
+47430	Sleepy-Time Tom	1951	7	NA	6.7	32	0	0	0	14.5	4.5	4.5	24.5	14.5	24.5	4.5		0	1	1	0	0	0	1
+Using qplot()
+Basics
+In [21]:
+qplot(rating,data=df,geom='histogram',binwidth=0.1,alpha=0.8)
+
+
+In [23]:
+# ggplot(data, aesthetics)
+pl <- ggplot(df,aes(x=rating))
+In [24]:
+# Add Histogram Geometry
+pl + geom_histogram()
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
+
+Adding Color
+In [41]:
+pl <- ggplot(df,aes(x=rating))
+pl + geom_histogram(binwidth=0.1,color='red',fill='pink')
+
+Adding Labels
+In [65]:
+pl <- ggplot(df,aes(x=rating))
+pl + geom_histogram(binwidth=0.1,color='red',fill='pink') + xlab('Movie Ratings')+ ylab('Occurences') + ggtitle(' Movie Ratings')
+
+Change Alpha (Transparency)
+In [49]:
+pl <- ggplot(df,aes(x=rating))
+pl + geom_histogram(binwidth=0.1,fill='blue',alpha=0.4) + xlab('Movie Ratings')+ ylab('Occurences')
+
+In [52]:
+pl <- ggplot(df,aes(x=rating))
+pl + geom_histogram(binwidth=0.1,color='blue',fill='pink',linetype='dotted') + xlab('Movie Ratings')+ ylab('Occurences')
+
+Advanced Aesthetics
+
+In [57]:
+# Adding Labels
+pl <- ggplot(df,aes(x=rating))
+pl + geom_histogram(binwidth=0.1,aes(fill=..count..)) + xlab('Movie Ratings')+ ylab('Occurences')
+
+
+In [63]:
+# Adding Labels
+pl <- ggplot(df,aes(x=rating))
+pl2 <- pl + geom_histogram(binwidth=0.1,aes(fill=..count..)) + xlab('Movie Ratings')+ ylab('Occurences')
+In [59]:
+# scale_fill_gradient('Label',low=color1,high=color2)
+pl2 + scale_fill_gradient('Count',low='blue',high='red')
+
+In [62]:
+# scale_fill_gradient('Label',low=color1,high=color2)
+pl2 + scale_fill_gradient('Count',low='darkgreen',high='lightblue')
+
+Adding density plot
+
+In [68]:
+# Adding Labels
+pl <- ggplot(df,aes(x=rating))
+pl + geom_histogram(aes(y=..density..)) + geom_density(color='red')
+stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
