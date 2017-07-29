@@ -61,7 +61,7 @@ tuned.results <- tune(svm, train.x=broken ~ .,data= train, kernel='radial',range
 print(summary(tuned.results))
 
 #cost gamma
-100   0.1
+##100   0.1
 
 tuned.model <- svm(broken ~ ., data=maintain, cost=100, gamma=0.1)
 tuned.predictions <- predict(tuned.model, test)
